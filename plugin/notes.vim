@@ -140,17 +140,16 @@ function! NotesDrawer()
 endfunction
 
 
-" echo expand('%:t:r')
-function! NotesBacklinks(...)
-  exe ":Ag " . a:0
-endfunction
-
 " Notes commands definition.
 exe "command! Notes call NotesInit()"
 exe "command! Journal call NotesJournal()"
 exe "command! Resource call NotesResource()"
 exe "command! Drawer call NotesDrawer()"
-exe "command! Backlinks call NotesBacklinks(" . expand("%:t:r") . ")"
+
+" expand("%:t:r") - get filename without extension
+" \[\[...\]\] - wrap filename into double squer brackets
+" pass it all to silver_searcher (ag)
+command! -bang -nargs=* Backlinks call fzf#vim#ag('\[\['.expand("%:t:r").'\]\]')
 
 if get(g:, 'notes_no_maps')
   finish

@@ -17,11 +17,13 @@ Table of contents:
     - [Resource](#resource)
     - [Drawer](#drawer)
     - [Person](#person)
+  - [Backlinks](#backlinks)
   - [Roadmap](#roadmap)
 
 ## Requirements
 
-A recent version of Vim (or its flavor). There are no external depencies for now, but I might add [`fzf`](https://github.com/junegunn/fzf.vim) at some point.
+- a recent version of Vim (or its flavor)
+- [`fzf`](https://github.com/junegunn/fzf.vim) if you want to use `:Backlinks`
 
 ## Installation
 
@@ -44,6 +46,7 @@ Following commands are available:
 - `:Resource` - creates and/or opens [`resource`](#resource) file for editing
 - `:Drawer` - creates and/or opens [`drawer`](#drawer) file
 - `:Person` - creates [`person`](#person) file
+- `:Backlinks` - searches for `[[current_file_name]]` references in `path`
 
 ## Limitations
 
@@ -105,9 +108,12 @@ completed_at: 2020-07-01
 
 Person files are like contact entries, but with more notes. Basically this is a regular [`resource`](#resource) but in a separate folder with some metadata.
 
+## Backlinks
+
+This is a simple custom fzf function based on [the_silver_searcher](https://github.com/ggreer/the_silver_searcher/). It wraps current file name with `[[ ]]` and displays search results, which can further be limited down.
+
 ## Roadmap
 
-- [ ] Add `:Backlinks` command which uses `fzf` to list files which are linked to the current one
 - [ ] Example script or jupyter notebook which builds statistics on [drawer](#drawer) files
 - [ ] Provide more customization options (add all leftover variables)
 - [ ] Provide a way to customize metadata options
