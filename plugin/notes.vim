@@ -145,6 +145,7 @@ exe "command! Notes call NotesInit()"
 exe "command! Journal call NotesJournal()"
 exe "command! Resource call NotesResource()"
 exe "command! Drawer call NotesDrawer()"
+exe "command! Person call NotesPerson()"
 
 " expand("%:t:r") - get filename without extension
 " \[\[...\]\] - wrap filename into double squer brackets
