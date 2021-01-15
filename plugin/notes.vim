@@ -45,7 +45,15 @@ let s:notes_resources_home = s:notes_home . s:notes_resources_dir
 let s:notes_drawer_home = s:notes_home . s:notes_drawer_dir
 let s:notes_people_home = s:notes_home . s:notes_people_dir
 
+function! s:createDirectoryIfNotExists(p)
+  if !isdirectory(expand(a:p))
+    call mkdir(expand(a:p))
+    echomsg "Created new directory " . a:p
+  endif
+endfunction
+
 function! NotesInit()
+  call s:createDirectoryIfNotExists(s:notes_home)
   " Change current directory to "s:notes_home"
   exe "chdir " . s:notes_home
   " Extending path for "gf" to work properly for any file inside Notes
@@ -65,6 +73,7 @@ augroup END
 " Create a file with "s:notes_journal_file_name" and
 " "s:notes_journal_file_title" if doesn't exsit. Then open it for editing.
 function! NotesJournal()
+  call s:createDirectoryIfNotExists(s:notes_journal_home)
   let journal_file = strftime(s:notes_journal_file_name) . ".md"
   let journal_file_path = s:notes_journal_home . journal_file
   if !filereadable(expand(journal_file_path))
@@ -76,6 +85,7 @@ endfunction
 " Interactively create "resource" type file. Open the file if it exists
 " already.
 function! NotesResource()
+  call s:createDirectoryIfNotExists(s:notes_resources_home)
   let slug = input("Slug: ")
   let resource_file_path = s:notes_resources_home . slug . ".md"
   let exists = filereadable(expand(resource_file_path))
@@ -93,6 +103,7 @@ endfunction
 " Interactively create "person" type file. Open the file if it exists
 " already.
 function! NotesPerson()
+  call s:createDirectoryIfNotExists(s:notes_people_home)
   let slug = input("Slug: ")
   let person_file_path = s:notes_people_home . slug . ".md"
   let exists = filereadable(expand(person_file_path))
@@ -119,6 +130,7 @@ endfunction
 " Interactively create "drawer" type file. Open the file if it exists
 " already.
 function! NotesDrawer()
+  call s:createDirectoryIfNotExists(s:notes_drawer_home)
   let slug = input("Slug: ")
   let drawer_file_path = s:notes_drawer_home . s:notes_drawer_file_name_prefix . slug . ".md"
   let exists = filereadable(expand(drawer_file_path))
