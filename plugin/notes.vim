@@ -4,30 +4,42 @@ if exists("g:loaded_notes") || &cp
 endif
 let g:loaded_notes = 1
 
+# Configuration variables
 let s:notes_home = "~/Notes/"
 if exists("g:notes_home")
   let s:notes_home = g:notes_home
 endif
 let s:notes_journal_dir = "journal/"
 if exists("g:notes_journal_dir")
-  let s:notes_journal_dir = s:notes_journal_dir
+  let s:notes_journal_dir = g:notes_journal_dir
 endif
 let s:notes_journal_file_name = "%Y_%m_%d"
 if exists("g:notes_journal_file_name")
-  let s:notes_journal_file_name = s:notes_journal_file_name
+  let s:notes_journal_file_name = g:notes_journal_file_name
 endif
 let s:notes_date_format = "%Y-%m-%d"
 if exists("g:notes_date_format")
-  let s:notes_date_format = s:notes_date_format
+  let s:notes_date_format = g:notes_date_format
+endif
+let s:notes_resources_dir = "3_resources/"
+if exists("g:notes_resources_dir")
+  let s:notes_resources_dir = g:notes_resources_dir
+endif
+let s:notes_drawer_dir = "3_resources/drawer/"
+if exists("g:notes_drawer_dir")
+  let s:notes_drawer_dir = g:notes_drawer_dir
+endif
+let s:notes_drawer_file_name_prefix = "drawer_"
+if exists("g:notes_drawer_file_name_prefix")
+  let s:notes_drawer_file_name_prefix = g:notes_drawer_file_name_prefix
+endif
+let s:notes_people_dir = "3_resources/people/"
+if exists("g:notes_people_dir")
+  let s:notes_people_dir = g:notes_people_dir
 endif
 
+# Constructed internal variables
 let s:notes_journal_file_title = "# " . s:notes_date_format
-let s:notes_resources_dir = "3_resources/"
-let s:notes_drawer_dir = "3_resources/drawer/"
-let s:notes_drawer_file_name_prefix = "drawer_"
-let s:notes_people_dir = "3_resources/people/"
-
-" Internal variables
 let s:notes_journal_home = s:notes_home . s:notes_journal_dir
 let s:notes_resources_home = s:notes_home . s:notes_resources_dir
 let s:notes_drawer_home = s:notes_home . s:notes_drawer_dir

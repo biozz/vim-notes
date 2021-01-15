@@ -62,10 +62,16 @@ Following commands are available:
 
 Following configuration options are available:
 
-- `g:notes_home` - notes root directory, default is `~/Notes/`, must end with trailing slash
-- `g:notes_journal_dir` - where to store journal files, default is `journal/`, must end with trailing slash
+- `g:notes_home` - notes root directory, default is `~/Notes/`
+- `g:notes_journal_dir` - where to store journal files, default is `journal/`
 - `g:notes_journal_file_name` - how to name journal files, default is `%Y_%m_%d` (`.md` extension is always added), formatted with [strftime](https://strftime.org/)
 - `g:notes_date_format` - what format to use in `completed_at` and `discovered_at` dates in [`drawer`](#drawer) files, default is `%Y-%m-%d`, formatted with [strftime](https://strftime.org/)
+- `g:notes_resources_dir` - where to store resource files, default is `3_resources/`
+- `g:notes_drawer_dir` - where to store [`drawer`](#drawer) files, default is `drawer/`
+- `g:notes_drawer_file_name_prefix` - this will be prepended to all files inside `g:notes_drawer_dir`, default is `drawer_`
+- `g:notes_people_dir` - where to store [`person`](#person) files, default is `people/` inside `g:notes_resources_dir`
+
+_Note: all `_dir` variables must end with a trailing slash_
 
 Example:
 
