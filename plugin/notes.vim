@@ -4,7 +4,7 @@ if exists("g:loaded_notes") || &cp
 endif
 let g:loaded_notes = 1
 
-# Configuration variables
+" Configuration variables
 let s:notes_home = "~/Notes/"
 if exists("g:notes_home")
   let s:notes_home = g:notes_home
@@ -38,7 +38,7 @@ if exists("g:notes_people_dir")
   let s:notes_people_dir = g:notes_people_dir
 endif
 
-# Constructed internal variables
+" Constructed internal variables
 let s:notes_journal_file_title = "# " . s:notes_date_format
 let s:notes_journal_home = s:notes_home . s:notes_journal_dir
 let s:notes_resources_home = s:notes_home . s:notes_resources_dir
