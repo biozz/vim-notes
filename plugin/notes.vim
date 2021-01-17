@@ -37,6 +37,14 @@ let s:notes_people_dir = "3_resources/people/"
 if exists("g:notes_people_dir")
   let s:notes_people_dir = g:notes_people_dir
 endif
+let s:notes_inbox_dir = "inbox/"
+if exists("g:notes_inbox_dir")
+  let s:notes_inbox_dir = g:notes_inbox_dir
+endif
+let s:notes_inbox_file_name = "%Y-%m-%d-%H-%M-%S"
+if exists("g:notes_inbox_file_name")
+  let s:notes_inbox_file_name = g:notes_inbox_file_name
+endif
 
 " Constructed internal variables
 let s:notes_journal_file_title = "# " . s:notes_date_format
@@ -44,7 +52,9 @@ let s:notes_journal_home = s:notes_home . s:notes_journal_dir
 let s:notes_resources_home = s:notes_home . s:notes_resources_dir
 let s:notes_drawer_home = s:notes_home . s:notes_drawer_dir
 let s:notes_people_home = s:notes_home . s:notes_people_dir
+let s:notes_inbox_home = s:notes_home . s:notes_inbox_dir
 
+" Utility functions
 function! s:createDirectoryIfNotExists(p)
   if !isdirectory(expand(a:p))
     call mkdir(expand(a:p))
@@ -163,6 +173,17 @@ function! NotesDrawer()
 
 endfunction
 
+" Create a file with "s:notes_inbox_file_name"
+" if doesn't exsit. Then open it for editing.
+function! NotesInbox()
+  call s:createDirectoryIfNotExists(s:notes_inbox_home)
+  let inbox_file = strftime(s:notes_inbox_file_name) . ".md"
+  let inbox_file_path = s:notes_inbox_home . inbox_file
+  if !filereadable(expand(inbox_file_path))
+    call writefile([], expand(inbox_file_path), "a")
+  endif
+  exe "e " . inbox_file_path
+endfunction
 
 " Notes commands definition.
 exe "command! Notes call NotesInit()"
@@ -170,7 +191,10 @@ exe "command! Journal call NotesJournal()"
 exe "command! Resource call NotesResource()"
 exe "command! Drawer call NotesDrawer()"
 exe "command! Person call NotesPerson()"
+exe "command! Inbox call NotesInbox()"
 
+" Backlinks is a command which displays files
+" linked to the current one based on file name
 " expand("%:t:r") - get filename without extension
 " \[\[...\]\] - wrap filename into double squer brackets
 " pass it all to silver_searcher (ag)

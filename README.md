@@ -6,24 +6,32 @@ The approach is inspired by [PARA](https://fortelabs.co/blog/para/) method and w
 
 Table of contents:
 
-- [notes.vim](#notesvim)
-  - [Requirements](#requirements)
-  - [Installation](#installation)
-    - [vim-plug](#vim-plug)
-  - [Usage](#usage)
-  - [Limitations](#limitations)
-  - [Configuration](#configuration)
-  - [File types](#file-types)
-    - [Resource](#resource)
-    - [Drawer](#drawer)
-    - [Person](#person)
-  - [Backlinks](#backlinks)
-  - [Roadmap](#roadmap)
+<!-- vim-markdown-toc GFM -->
+
+* [Requirements](#requirements)
+* [Installation](#installation)
+  * [vim-plug](#vim-plug)
+* [Usage](#usage)
+* [Limitations](#limitations)
+* [Configuration](#configuration)
+* [File types](#file-types)
+  * [Resource](#resource)
+  * [Drawer](#drawer)
+  * [Person](#person)
+  * [Inbox](#inbox)
+* [Backlinks](#backlinks)
+* [Roadmap](#roadmap)
+
+<!-- vim-markdown-toc -->
 
 ## Requirements
 
-- a recent version of Vim (or its flavor)
-- [`fzf`](https://github.com/junegunn/fzf.vim) if you want to use `:Backlinks`
+Tere are no specific requirements for basic usage, only a recent version of Vim (or its flavor).
+
+If you want to use `:Backlinks` command:
+
+- [`fzf`](https://github.com/junegunn/fzf.vim)
+- [the_silver_searcher](https://github.com/ggreer/the_silver_searcher/)
 
 ## Installation
 
@@ -47,6 +55,7 @@ Following commands are available:
 - `:Drawer` - creates and/or opens [`drawer`](#drawer) file
 - `:Person` - creates [`person`](#person) file
 - `:Backlinks` - searches for `[[current_file_name]]` references in `path`
+- `:Inbox` - creates [`inbox`](#inbox) file
 
 ## Limitations
 
@@ -70,6 +79,8 @@ Following configuration options are available:
 - `g:notes_drawer_dir` - where to store [`drawer`](#drawer) files, default is `drawer/`
 - `g:notes_drawer_file_name_prefix` - this will be prepended to all files inside `g:notes_drawer_dir`, default is `drawer_`
 - `g:notes_people_dir` - where to store [`person`](#person) files, default is `people/` inside `g:notes_resources_dir`
+- `g:notes_inbox_dir` - where to store [`inbox`](#inbox) files, default is `inbox/` inside `g:notes_home`
+- `g:notes_inbox_file_name` - how to name [`inbox`](#inbox) files, default is `%Y-%m-%d-%H-%M-%S` (`.md` extension is always added), formatted with [strftime](https://strftime.org/)
 
 _Note: all `_dir` variables must end with a trailing slash_
 
@@ -114,13 +125,18 @@ completed_at: 2020-07-01
 
 Person files are like contact entries, but with more notes. Basically this is a regular [`resource`](#resource) but in a separate folder with some metadata.
 
+### Inbox
+
+Inbox files are for quick bits that you want to add, but still don't know where to properly place them.
+
+The idea behind default file name format for inbox files comes from [GitJournal](https://github.com/GitJournal/GitJournal), because I use it on my phone.
+
 ## Backlinks
 
 This is a simple custom fzf function based on [the_silver_searcher](https://github.com/ggreer/the_silver_searcher/). It wraps current file name with `[[ ]]` and displays search results, which can further be limited down.
 
+
 ## Roadmap
 
 - [ ] Example script or jupyter notebook which builds statistics on [drawer](#drawer) files
-- [ ] Provide more customization options (add all leftover variables)
-- [ ] Provide a way to customize metadata options
-- [ ] Add default key mappings
+- [ ] Provide a way to customize metadata (front-matter) options
