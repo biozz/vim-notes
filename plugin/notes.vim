@@ -78,6 +78,9 @@ augroup notes
   " Normally I don't want wrapping, but notes are usually open in split screen
   " and it gets annoying without.
   exe "autocmd BufEnter,BufRead,BufNewFile " . s:notes_home . "*.md set wrap"
+  " Enable completfunc/omnifunc for markdown files in notes directory
+  exe "autocmd BufEnter,BufRead,BufNewFile " . s:notes_home . "*.md set completefunc=NotesCompleteFilename"
+  exe "autocmd BufEnter,BufRead,BufNewFile " . s:notes_home . "*.md set omnifunc=NotesCompleteFilename"
 augroup END
 
 " Create a file with "s:notes_journal_file_name" and
@@ -185,6 +188,38 @@ function! NotesInbox()
   exe "e " . inbox_file_path
 endfunction
 
+" Omnicompletion function for notes file names in g:notes_home directory
+" To be used like this:
+" set completefunc=NotesCompleteFilename
+" set omnifunc=NotesCompleteFilename
+"
+function! NotesCompleteFilename(findstart, base)
+  if a:findstart
+    " locate the start of the word
+    let line = getline('.')
+    let start = col('.') - 1
+    while start > 0 && line[start - 1] =~ '\w'
+      let start -= 1
+    endwhile
+    return start
+  else
+    " find months matching with "a:base"
+    let res = []
+    " this find command will list all files in the current directory
+    " recursively
+    " then it will remove directory path with first sed
+    " and strip file extension with the second sed
+    let cmd = "find " . g:notes_home . " -path '*/\.*' -prune -o -type f -print -o -type l -print | sed 's!.*/!!' | sed 's/\.[^.]*$//'"
+    for m in split(system(cmd), '\n')
+      if m =~ '^' . a:base
+        call add(res, m)
+      endif
+    endfor
+    return res
+  endif
+endfunction
+
+
 " Notes commands definition.
 exe "command! Notes call NotesInit()"
 exe "command! Journal call NotesJournal()"
@@ -203,5 +238,3 @@ command! -bang -nargs=* Backlinks call fzf#vim#ag('\[\['.expand("%:t:r").'\]\]')
 if get(g:, 'notes_no_maps')
   finish
 endif
-
-" TODO: add default mappings

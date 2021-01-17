@@ -20,6 +20,7 @@ Table of contents:
   * [Person](#person)
   * [Inbox](#inbox)
 * [Backlinks](#backlinks)
+* [Auto-completion](#auto-completion)
 * [Roadmap](#roadmap)
 
 <!-- vim-markdown-toc -->
@@ -140,6 +141,12 @@ The idea behind default file name format for inbox files comes from [GitJournal]
 ## Backlinks
 
 This is a simple custom fzf function based on [the_silver_searcher](https://github.com/ggreer/the_silver_searcher/). It wraps current file name with `[[ ]]` and displays search results, which can further be limited down.
+
+## Auto-completion
+
+This plugin exposes `NotesCompleteFilename` function, which is automatically enabled for all markdown files in `g:notes_home` via `set completefunc` and `set omnifunc`. The default mapping is `<CTRL-X> <CTRL-O>`.
+
+It uses system's `find` command with a couple of `sed`. The base of `find` is inspired by `fzf-complete-file` with an addition of file extension removal.
 
 
 ## Roadmap
