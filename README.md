@@ -57,6 +57,12 @@ Following commands are available:
 - `:Backlinks` - searches for `[[current_file_name]]` references in `path`
 - `:Inbox` - creates [`inbox`](#inbox) file
 
+There are no default key bindings, you should configure them by yourself. Here is an example:
+
+```vim
+nnoremap <leader>N :Notes<CR>
+```
+
 ## Limitations
 
 - file navigation with `gf` works only if your wiki-links are single words
