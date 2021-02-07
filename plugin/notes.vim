@@ -192,7 +192,6 @@ endfunction
 " To be used like this:
 " set completefunc=NotesCompleteFilename
 " set omnifunc=NotesCompleteFilename
-"
 function! NotesCompleteFilename(findstart, base)
   if a:findstart
     " locate the start of the word
@@ -219,6 +218,13 @@ function! NotesCompleteFilename(findstart, base)
   endif
 endfunction
 
+" Find random note file.
+" Uses standard unix tools: find, sort, tail
+" trim is for removing trailing / from notes_home path,
+" otherwise it produces ugly paths like: ~/Notes//test.md
+function! NotesRandomNote()
+  exe "e " . system("find " . trim(g:notes_home, "/") . " -regex '.*\.md' | sort -R | tail -1")
+endfunction
 
 " Notes commands definition.
 exe "command! Notes call NotesInit()"
@@ -227,6 +233,7 @@ exe "command! Resource call NotesResource()"
 exe "command! Drawer call NotesDrawer()"
 exe "command! Person call NotesPerson()"
 exe "command! Inbox call NotesInbox()"
+exe "command! RandomNote NotesRandomNote()"
 
 " Backlinks is a command which displays files
 " linked to the current one based on file name

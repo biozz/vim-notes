@@ -57,6 +57,7 @@ Following commands are available:
 - `:Person` - creates [`person`](#person) file
 - `:Backlinks` - searches for `[[current_file_name]]` references in `path`
 - `:Inbox` - creates [`inbox`](#inbox) file
+- `:RandomNote` - opens random note for editing (good for reviewing old notes)
 
 There are no default key bindings, you should configure them by yourself. Here is an example:
 
