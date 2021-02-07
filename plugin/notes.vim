@@ -233,7 +233,7 @@ exe "command! Resource call NotesResource()"
 exe "command! Drawer call NotesDrawer()"
 exe "command! Person call NotesPerson()"
 exe "command! Inbox call NotesInbox()"
-exe "command! RandomNote NotesRandomNote()"
+exe "command! RandomNote call NotesRandomNote()"
 
 " Backlinks is a command which displays files
 " linked to the current one based on file name
