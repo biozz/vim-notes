@@ -21,13 +21,14 @@ Table of contents:
   * [Inbox](#inbox)
 * [Backlinks](#backlinks)
 * [Auto-completion](#auto-completion)
-* [Roadmap](#roadmap)
+* [Contributing](#contributing)
+* [License](#license)
 
 <!-- vim-markdown-toc -->
 
 ## Requirements
 
-Tere are no specific requirements for basic usage, only a recent version of Vim (or its flavor).
+There are no specific requirements for basic usage, only a recent version of Vim (or its flavor).
 
 If you want to use `:Backlinks` command:
 
@@ -48,7 +49,7 @@ More information at [vim-plug](https://github.com/junegunn/vim-plug).
 
 ## Usage
 
-Following commands are available:
+The following commands are available:
 
 - `:Notes` - initializes notes in the current vim instance by adding all markdown files to vim's `path`, so they can be navigated with [`gf`](https://vim.fandom.com/wiki/Open_file_under_cursor) when standing on a `[[link]]`
 - `:Journal` - creates and/or opens today's journal file (like in [Obsidian.md](https://obsidian.md/))
@@ -77,10 +78,10 @@ nnoremap <leader>N :Notes<CR>
 
 ## Configuration
 
-Following configuration options are available:
+The following configuration options are available:
 
 - `g:notes_home` - notes root directory, default is `~/Notes/`
-- `g:notes_auto_init` - calls `NotesInit` if current directory is the same as `g:notes_home` default is `1` (enabled)
+- `g:notes_auto_init` - calls `:Notes` command if current directory is the same as `g:notes_home`, default is `1` (enabled)
 - `g:notes_init_prompt` - display initialization help messages or not, default is `1` (enabled)
 - `g:notes_journal_dir` - where to store journal files, default is `journal/`
 - `g:notes_journal_file_name` - how to name journal files, default is `%Y_%m_%d` (`.md` extension is always added), formatted with [strftime](https://strftime.org/)
@@ -143,7 +144,7 @@ The idea behind default file name format for inbox files comes from [GitJournal]
 
 ## Backlinks
 
-This is a simple custom fzf function based on [the_silver_searcher](https://github.com/ggreer/the_silver_searcher/). It wraps current file name with `[[ ]]` and displays search results, which can further be limited down.
+This is a simple custom `fzf` function based on [the_silver_searcher](https://github.com/ggreer/the_silver_searcher/). It wraps the current file name with `[[ ]]` and displays search results, which can further be limited down.
 
 ## Auto-completion
 
@@ -151,8 +152,10 @@ This plugin exposes `NotesCompleteFilename` function, which is automatically ena
 
 It uses system's `find` command with a couple of `sed`. The base of `find` is inspired by `fzf-complete-file` with an addition of file extension removal.
 
+## Contributing
 
-## Roadmap
+There are no particular rules. Feel free to open an issue or start a discussion.
 
-- [ ] Example script or jupyter notebook which builds statistics on [drawer](#drawer) files
-- [ ] Provide a way to customize metadata (front-matter) options
+## License
+
+Copyright (c) Ivan Elfimov. Published under MIT license.
