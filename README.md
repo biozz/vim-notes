@@ -80,6 +80,8 @@ nnoremap <leader>N :Notes<CR>
 Following configuration options are available:
 
 - `g:notes_home` - notes root directory, default is `~/Notes/`
+- `g:notes_auto_init` - calls `NotesInit` if current directory is the same as `g:notes_home` default is `1` (enabled)
+- `g:notes_init_prompt` - display initialization help messages or not, default is `1` (enabled)
 - `g:notes_journal_dir` - where to store journal files, default is `journal/`
 - `g:notes_journal_file_name` - how to name journal files, default is `%Y_%m_%d` (`.md` extension is always added), formatted with [strftime](https://strftime.org/)
 - `g:notes_date_format` - what format to use in `completed_at` and `discovered_at` dates in [`drawer`](#drawer) files, default is `%Y-%m-%d`, formatted with [strftime](https://strftime.org/)
