@@ -12,6 +12,15 @@ if exists("g:notes_home")
   endif
   let s:notes_home = fnameescape(g:notes_home)
 endif
+let s:notes_auto_init = 1
+if exists("g:notes_auto_init")
+  let s:notes_auto_init = g:notes_auto_init
+endif
+let s:notes_init_prompt = 1
+if exists("g:notes_init_prompt")
+  let s:notes_init_prompt = g:notes_init_prompt
+endif
+
 let s:notes_journal_dir = "journal/"
 if exists("g:notes_journal_dir")
   let s:notes_journal_dir = g:notes_journal_dir
@@ -73,18 +82,6 @@ function! NotesInit()
   " directory.
   exe "set path+=" . fnameescape(s:notes_home) . "**"
 endfunction
-
-augroup notes
-  " This makes `gf` command autoappend `.md` and makes easier to navigate
-  " [[links]]].
-  exe "autocmd BufEnter,BufRead,BufNewFile " . s:notes_home . "*.md set includeexpr=v:fname.'.md'"
-  " Normally I don't want wrapping, but notes are usually open in split screen
-  " and it gets annoying without.
-  exe "autocmd BufEnter,BufRead,BufNewFile " . s:notes_home . "*.md set wrap"
-  " Enable completfunc/omnifunc for markdown files in notes directory
-  exe "autocmd BufEnter,BufRead,BufNewFile " . s:notes_home . "*.md set completefunc=NotesCompleteFilename"
-  exe "autocmd BufEnter,BufRead,BufNewFile " . s:notes_home . "*.md set omnifunc=NotesCompleteFilename"
-augroup END
 
 " Create a file with "s:notes_journal_file_name" and
 " "s:notes_journal_file_title" if doesn't exsit. Then open it for editing.
@@ -244,6 +241,36 @@ exe "command! RandomNote call NotesRandomNote()"
 " \[\[...\]\] - wrap filename into double squer brackets
 " pass it all to silver_searcher (ag)
 command! -bang -nargs=* Backlinks call fzf#vim#ag('\[\['.expand("%:t:r").'\]\]')
+
+augroup notes
+  " This makes `gf` command autoappend `.md` and makes easier to navigate
+  " [[links]]].
+  exe "autocmd BufEnter,BufRead,BufNewFile " . s:notes_home . "*.md set includeexpr=v:fname.'.md'"
+  " Normally I don't want wrapping, but notes are usually open in split screen
+  " and it gets annoying without.
+  exe "autocmd BufEnter,BufRead,BufNewFile " . s:notes_home . "*.md set wrap"
+  " Enable completfunc/omnifunc for markdown files in notes directory
+  exe "autocmd BufEnter,BufRead,BufNewFile " . s:notes_home . "*.md set completefunc=NotesCompleteFilename"
+  exe "autocmd BufEnter,BufRead,BufNewFile " . s:notes_home . "*.md set omnifunc=NotesCompleteFilename"
+augroup END
+
+" Automatic init sequence
+if fnameescape(getcwd() . "/") == s:notes_home
+  if s:notes_auto_init
+    call NotesInit()
+    if s:notes_init_prompt
+      echomsg "You are in Notes directory"
+      echomsg "Notes initialized automatically, to disable add: let g:notes_auto_init = 0"
+      echomsg "And let g:notes_init_prompt = 0 to hide this message"
+    endif
+  else
+    if s:notes_init_prompt
+      echomsg "You are in Notes directory, call :Notes to initialize"
+      echomsg "or set g:notes_auto_init to 1 if you want this to be done automatically"
+      echomsg "You can also disable this prompt: let g:notes_init_prompt = 0"
+    endif
+  endif
+endif
 
 if get(g:, 'notes_no_maps')
   finish
