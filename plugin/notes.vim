@@ -7,7 +7,10 @@ let g:loaded_notes = 1
 " Configuration variables
 let s:notes_home = "~/Notes/"
 if exists("g:notes_home")
-  let s:notes_home = g:notes_home
+  if g:notes_home[-1] != "/"
+    let g:notes_home = g:notes_home . "/"
+  endif
+  let s:notes_home = fnameescape(g:notes_home)
 endif
 let s:notes_journal_dir = "journal/"
 if exists("g:notes_journal_dir")
@@ -68,7 +71,7 @@ function! NotesInit()
   exe "chdir " . s:notes_home
   " Extending path for "gf" to work properly for any file inside Notes
   " directory.
-  exe "set path+=" . s:notes_home . "**"
+  exe "set path+=" . fnameescape(s:notes_home) . "**"
 endfunction
 
 augroup notes
