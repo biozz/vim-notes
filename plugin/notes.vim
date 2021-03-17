@@ -208,7 +208,7 @@ function! NotesCompleteFilename(findstart, base)
     " recursively
     " then it will remove directory path with first sed
     " and strip file extension with the second sed
-    let cmd = "find " . g:notes_home . " -path '*/\.*' -prune -o -type f -print -o -type l -print | sed 's!.*/!!' | sed 's/\.[^.]*$//'"
+    let cmd = "find " . fnameescape(g:notes_home) . " -path '*/\.*' -prune -o -type f -print -o -type l -print | sed 's!.*/!!' | sed 's/\.[^.]*$//'"
     for m in split(system(cmd), '\n')
       if m =~ '^' . a:base
         call add(res, m)
@@ -223,7 +223,7 @@ endfunction
 " trim is for removing trailing / from notes_home path,
 " otherwise it produces ugly paths like: ~/Notes//test.md
 function! NotesRandomNote()
-  exe "e " . system("find " . trim(g:notes_home, "/") . " -regex '.*\.md' | sort -R | tail -1")
+  exe "e " . system("find " . fnameescape(g:notes_home) . " -regex '.*\.md' | sort -R | tail -1")
 endfunction
 
 " Notes commands definition.
